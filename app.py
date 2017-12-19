@@ -2,7 +2,7 @@ import requests
 import pandas
 import simplejson as json
 from bokeh.plotting import figure
-from bokeh.palettes import Spectral11
+from bokeh.palettes import Spectral
 from bokeh.embed import components 
 from flask import Flask,render_template,request,redirect,session
 
