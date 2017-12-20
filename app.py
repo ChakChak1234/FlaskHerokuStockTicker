@@ -25,13 +25,13 @@ def graph():
     #    if request.method == 'POST':
     app.vars['ticker'] = request.form['ticker']
 
-    api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json?api_key=n36teYQNRWq1xmudWvm3' % app.vars['ticker']
+    api_url = 'https://www.quandl.com/api/v3/datasets/WIKI/%s/data.json?api_key=n36teYQNRWq1xmudWvm3' % app.vars['ticker']
     session = requests.Session()
     session.mount('http://', requests.adapters.HTTPAdapter(max_retries=3))
     raw_data = session.get(api_url)
 
     a = raw_data.json()
-    df = pandas.DataFrame(a['data'], columns=a['column_names'])
+    df = pandas.DataFrame(a['dataset_data']['data'], columns=a['dataset_data']['column_names'])
 
     df['Date'] = pandas.to_datetime(df['Date'])
 
