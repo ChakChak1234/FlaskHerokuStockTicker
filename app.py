@@ -1,6 +1,7 @@
 import requests
 import pandas
-from bokeh.plotting import figure
+import bokeh
+from bokeh.plotting import figure, output_file, show
 from bokeh.palettes import Spectral11
 from bokeh.embed import components
 from flask import Flask, render_template, request, redirect, session
@@ -40,7 +41,7 @@ def graph():
                x_axis_type='datetime')
 
     if request.form.get('Close'):
-        p.line(x=df['Date'].values, y=df['Close'].values, line_width=2, legend='Close')
+        p.line(x=df['Date'].values, y=df['Close'].values, line_width=2, line_color="blue", legend='Close')
     if request.form.get('Adj. Close'):
         p.line(x=df['Date'].values, y=df['Adj. Close'].values, line_width=2, line_color="green", legend='Adj. Close')
     if request.form.get('Open'):
