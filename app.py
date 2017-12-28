@@ -36,22 +36,18 @@ def graph():
 
     df = df[['Date', 'Open', 'Adj. Open', 'Close', 'Adj. Close']]
 
-    # set min and max date times for plotting
-    # x_min = df['Date'].min()
-    # x_max = df['Date'].max()
-
     p = figure(title='Stock prices for %s' % app.vars['ticker'],
                x_axis_label='date',
-               x_axis_type='datetime') # x_range = (x_min.timestamp(), x_max.timestamp())
+               x_axis_type='datetime')
 
-    if request.form.get('Close'):
-        p.line(x=df['Date'].values, y=df['Close'].values, line_width=2, line_color="blue", legend='Close')
-    if request.form.get('Adj. Close'):
-        p.line(x=df['Date'].values, y=df['Adj. Close'].values, line_width=2, line_color="green", legend='Adj. Close')
     if request.form.get('Open'):
         p.line(x=df['Date'].values, y=df['Open'].values, line_width=2, line_color="red", legend='Open')
     if request.form.get('Adj. Open'):
         p.line(x=df['Date'].values, y=df['Adj. Open'].values, line_width=2, line_color="purple", legend='Adj. Open')
+    if request.form.get('Close'):
+        p.line(x=df['Date'].values, y=df['Close'].values, line_width=2, line_color="blue", legend='Close')
+    if request.form.get('Adj. Close'):
+        p.line(x=df['Date'].values, y=df['Adj. Close'].values, line_width=2, line_color="green", legend='Adj. Close')
     script, div = components(p)
     return render_template('graph.html', script=script, div=div)
 
