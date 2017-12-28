@@ -34,6 +34,8 @@ def graph():
 
     df['Date'] = pandas.to_datetime(df['Date'])
 
+    df = df[['Date', 'Open', 'Adj. Open', 'Close', 'Adj. Close']]
+
     # set min and max date times for plotting
     # x_min = df['Date'].min()
     # x_max = df['Date'].max()
