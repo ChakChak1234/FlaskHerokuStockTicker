@@ -1,17 +1,13 @@
 import requests
 import pandas
 import bokeh
-from bokeh.plotting import figure, output_file, show
-from bokeh.palettes import Spectral11
+from bokeh.plotting import figure
 from bokeh.embed import components
 from flask import Flask, render_template, request, redirect, session
-from bokeh.embed import autoload_static
-from bokeh.resources import CDN
 
 app = Flask(__name__)
 
 app.vars = {}
-
 
 @app.route('/')
 def main():
