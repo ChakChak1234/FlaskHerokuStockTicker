@@ -5,6 +5,8 @@ from bokeh.plotting import figure, output_file, show
 from bokeh.palettes import Spectral11
 from bokeh.embed import components
 from flask import Flask, render_template, request, redirect, session
+from bokeh.embed import autoload_static
+from bokeh.resources import CDN
 
 app = Flask(__name__)
 
@@ -36,9 +38,13 @@ def graph():
 
     df['Date'] = pandas.to_datetime(df['Date'])
 
+    # set min and max date times for plotting
+    # x_min = df['Date'].min()
+    # x_max = df['Date'].max()
+
     p = figure(title='Stock prices for %s' % app.vars['ticker'],
                x_axis_label='date',
-               x_axis_type='datetime')
+               x_axis_type='datetime') # x_range = (x_min.timestamp(), x_max.timestamp())
 
     if request.form.get('Close'):
         p.line(x=df['Date'].values, y=df['Close'].values, line_width=2, line_color="blue", legend='Close')
