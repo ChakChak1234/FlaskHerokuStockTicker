@@ -3,6 +3,7 @@ import pandas
 import bokeh
 from bokeh.plotting import figure
 from bokeh.embed import components
+from bokeh.models import Button
 from flask import Flask, render_template, request, redirect, session
 
 app = Flask(__name__)
@@ -23,6 +24,8 @@ def index():
 def graph():
     #    if request.method == 'POST':
     app.vars['ticker'] = request.form['ticker']
+    app.vars['start_date'] = request.form['start_date']
+    app.vars['end_date'] = request.form['end_date']
 
     api_url = 'https://www.quandl.com/api/v3/datasets/WIKI/%s/data.json?api_key=n36teYQNRWq1xmudWvm3' % app.vars['ticker']
     session = requests.Session()
@@ -32,7 +35,7 @@ def graph():
     a = raw_data.json()
     df = pandas.DataFrame(a['dataset_data']['data'], columns=a['dataset_data']['column_names'])
 
-    df['Date'] = pandas.to_datetime(df['Date'])
+    df['Date'] = pandas.to_datetime(df['Date']).date()
 
     df = df[['Date', 'Open', 'Adj. Open', 'Close', 'Adj. Close']]
 
