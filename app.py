@@ -15,7 +15,6 @@ app.vars = {}
 def main():
     return redirect('/index')
 
-
 @app.route('/index', methods=['GET'])
 def index():
     return render_template('index.html')
@@ -37,12 +36,11 @@ def graph():
     df = pandas.DataFrame(a['dataset_data']['data'], columns=a['dataset_data']['column_names'])
 
     df['Date'] = pandas.to_datetime(df['Date']).dt.date
-
-    df = df[['Date', 'Open', 'Adj. Open', 'Close', 'Adj. Close']]
-
     start_date = datetime.datetime.strptime(app.vars['start_date'], "%m/%d/%Y").date()
     end_date = datetime.datetime.strptime(app.vars['end_date'], "%m/%d/%Y").date()
     df = df.loc[(df['Date'] > start_date) & (df['Date'] < end_date)]
+
+    df = df[['Date', 'Open', 'Adj. Open', 'Close', 'Adj. Close']]
 
     p = figure(title='Stock prices for %s' % app.vars['ticker'],
                x_axis_label='date',
