@@ -3,7 +3,7 @@ import pandas
 import bokeh
 from bokeh.plotting import figure
 from bokeh.embed import components
-from bokeh.models import Button
+from bokeh.sampledata
 from flask import Flask, render_template, request, redirect, session
 
 app = Flask(__name__)
