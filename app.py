@@ -3,8 +3,9 @@ import pandas
 import bokeh
 from bokeh.plotting import figure
 from bokeh.embed import components
-from bokeh.sampledata
+import bokeh.sampledata
 from flask import Flask, render_template, request, redirect, session
+import datetime
 
 app = Flask(__name__)
 
@@ -35,22 +36,26 @@ def graph():
     a = raw_data.json()
     df = pandas.DataFrame(a['dataset_data']['data'], columns=a['dataset_data']['column_names'])
 
-    df['Date'] = pandas.to_datetime(df['Date']).date()
+    df['Date'] = pandas.to_datetime(df['Date']).dt.date
 
     df = df[['Date', 'Open', 'Adj. Open', 'Close', 'Adj. Close']]
+
+    start_date = datetime.datetime.strptime(app.vars['start_date'], "%m/%d/%Y").date()
+    end_date = datetime.datetime.strptime(app.vars['end_date'], "%m/%d/%Y").date()
+    df = df.loc[(df['Date'] > start_date) & (df['Date'] < end_date)]
 
     p = figure(title='Stock prices for %s' % app.vars['ticker'],
                x_axis_label='date',
                x_axis_type='datetime')
 
     if request.form.get('open'):
-        p.line(x=df['Date'].values, y=df['Open'].values, line_width=2, line_color="red", legend='Open')
+        p.line(x=df['Date'].values, y=df['Open'].values, line_width=2, line_color="red", legend_label='Open')
     if request.form.get('adj_open'):
-        p.line(x=df['Date'].values, y=df['Adj. Open'].values, line_width=2, line_color="purple", legend='Adj. Open')
+        p.line(x=df['Date'].values, y=df['Adj. Open'].values, line_width=2, line_color="purple", legend_label='Adj. Open')
     if request.form.get('close'):
-        p.line(x=df['Date'].values, y=df['Close'].values, line_width=2, line_color="blue", legend='Close')
+        p.line(x=df['Date'].values, y=df['Close'].values, line_width=2, line_color="blue", legend_label='Close')
     if request.form.get('adj_close'):
-        p.line(x=df['Date'].values, y=df['Adj. Close'].values, line_width=2, line_color="green", legend='Adj. Close')
+        p.line(x=df['Date'].values, y=df['Adj. Close'].values, line_width=2, line_color="green", legend_label='Adj. Close')
     script, div = components(p)
     return render_template('graph.html', script=script, div=div)
 
