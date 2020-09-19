@@ -8,3 +8,4 @@ requests>=2.24.0
 simplejson>=3.17.2
 pandas>=1.1.2
 bokeh>=2.2.1
+pip>=20.2.3

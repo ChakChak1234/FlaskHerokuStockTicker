@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a8fb22e9-1af7-4071-9e86-faff66de38a5" name="Default" comment="Updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,9 +222,9 @@
       <screen x="-939" y="-1080" width="1920" height="1040" />
     </state>
     <state width="1899" height="281" key="GridCell.Tab.0.right/0.0.1536.824/981.-1080.1920.1040/-939.-1080.1920.1040@-939.-1080.1920.1040" timestamp="1600540675697" />
-    <state x="-478" y="-915" key="SettingsEditor" timestamp="1600535183234">
+    <state x="-478" y="-915" key="SettingsEditor" timestamp="1600542319592">
       <screen x="-939" y="-1080" width="1920" height="1040" />
     </state>
-    <state x="-478" y="-915" key="SettingsEditor/0.0.1536.824/981.-1080.1920.1040/-939.-1080.1920.1040@-939.-1080.1920.1040" timestamp="1600535183234" />
+    <state x="-478" y="-915" key="SettingsEditor/0.0.1536.824/981.-1080.1920.1040/-939.-1080.1920.1040@-939.-1080.1920.1040" timestamp="1600542319592" />
   </component>
 </project>
