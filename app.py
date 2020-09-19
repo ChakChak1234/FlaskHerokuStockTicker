@@ -3,8 +3,7 @@ import pandas
 import bokeh
 from bokeh.plotting import figure
 from bokeh.embed import components
-import bokeh.sampledata
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, make_response, Response
 import datetime
 
 app = Flask(__name__)
@@ -24,8 +23,6 @@ def index():
 def graph():
     #    if request.method == 'POST':
     app.vars['ticker'] = request.form['ticker']
-    app.vars['start_date'] = request.form['start_date']
-    app.vars['end_date'] = request.form['end_date']
 
     api_url = 'https://www.quandl.com/api/v3/datasets/WIKI/%s/data.json?api_key=n36teYQNRWq1xmudWvm3' % app.vars['ticker']
     session = requests.Session()
@@ -34,11 +31,6 @@ def graph():
 
     a = raw_data.json()
     df = pandas.DataFrame(a['dataset_data']['data'], columns=a['dataset_data']['column_names'])
-
-    df['Date'] = pandas.to_datetime(df['Date']).dt.date
-    start_date = datetime.datetime.strptime(app.vars['start_date'], "%m/%d/%Y").date()
-    end_date = datetime.datetime.strptime(app.vars['end_date'], "%m/%d/%Y").date()
-    df = df.loc[(df['Date'] > start_date) & (df['Date'] < end_date)]
 
     df = df[['Date', 'Open', 'Adj. Open', 'Close', 'Adj. Close']]
 
@@ -55,6 +47,7 @@ def graph():
     if request.form.get('adj_close'):
         p.line(x=df['Date'].values, y=df['Adj. Close'].values, line_width=2, line_color="green", legend_label='Adj. Close')
     script, div = components(p)
+
     return render_template('graph.html', script=script, div=div)
 
 if __name__ == '__main__':
